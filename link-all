@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+# Base dots dir (where this file lives) and the XDG_CONFIG_DIR
+CONF_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"
+DOTS=$(dirname $(readlink -e ${0}))
+
+link_default() {
+	if [ -d "${CONF_DIR}/${2}" ]; then
+		printf "${3} configuration present, skipping\n"
+	else
+		ln -s "${DOTS}/${1}" "${CONF_DIR}/${2}"
+		printf "${3} configuration linked\n"
+	fi
+}
+
+link_default nvim nvim Neovim
+link_default foot foot Foot
+link_default river river River
