@@ -4,9 +4,15 @@
 CONF_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"
 DOTS=$(dirname $(readlink -e ${0}))
 
+printf "%s\n" "---------------- LINKING UP ---------------------------"
+printf "Linking to configuration directory: %s\n" "${CONF_DIR}"
+printf "%s\n" "-------------------------------------------------------"
+
 link_default() {
-	if [ -d "${CONF_DIR}/${2}" ]; then
+	if test -d "${CONF_DIR}/${2}"; then
 		printf "${3} configuration present, skipping\n"
+	elif test -e "${CONF_DIR}/${2}" || test -h "${CONF_DIR}/${2}"; then
+		printf "${3} has some non-directory present (possibly proper symlink), skipping\n"
 	else
 		ln -s "${DOTS}/${1}" "${CONF_DIR}/${2}"
 		printf "${3} configuration linked\n"
@@ -16,3 +22,16 @@ link_default() {
 link_default nvim nvim Neovim
 link_default foot foot Foot
 link_default river river River
+
+BASHRC="${HOME}/.bashrc"
+
+if test -f "${BASHRC}" && test ! -h "${BASHRC}"; then
+	printf ".bashrc already present in home directory, moving to backup first\n"
+	mv "${BASHRC}" "${BASHRC}.bak"
+fi
+
+if test -h "${BASHRC}"; then
+	printf ".bashrc already linked, skipping\n"
+else
+	ln -s "${DOTS}/homedir/.bashrc" "${BASHRC}"
+fi
