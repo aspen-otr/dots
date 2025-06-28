@@ -1,0 +1,11 @@
+[init]
+	defaultBranch = main
+
+[user]
+	name = Aspen Price
+	email = sam@typicalsamprice.com
+
+[alias]
+	s = status --short --branch
+	l = log --oneline
+	p = push
