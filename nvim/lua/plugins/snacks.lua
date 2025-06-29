@@ -19,6 +19,11 @@ return {
             notifier = { enabled = true },
             picker = { enabled = true },
             statuscolumn = { enabled = true },
+        },
+        keys = {
+            { "<Leader><Space>", function() Snacks.picker.smart() end },
+            { "<Leader>,", function() Snacks.picker.buffers() end },
+            { "<Leader>.", function() Snacks.explorer() end },
         }
     }
 }
