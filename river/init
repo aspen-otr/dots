@@ -103,6 +103,11 @@ riverctl input pointer-2362-628-PIXA3854:00_093A:0274_Touchpad scroll-method two
 riverctl input pointer-2362-628-PIXA3854:00_093A:0274_Touchpad natural-scroll enabled
 
 riverctl rule-add -app-id "bar" csd
+riverctl rule-add -app-id "firefox" ssd
+
+riverctl spawn waybar
+# Toggle waybar
+riverctl map normal Super b spawn "pkill -USR1 waybar"
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
