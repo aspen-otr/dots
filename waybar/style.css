@@ -9,6 +9,10 @@ window#waybar #clock {
     padding-right: 2em;
 }
 
+window#waybar #tags button {
+    color: #5c6773; /* Necessary because... idk?  */
+}
+
 window#waybar #tags button.occupied {
     background-color: #2f3440;
     color: #73d0ff;

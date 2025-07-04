@@ -39,6 +39,7 @@ link_default nvim nvim Neovim
 link_default foot foot Foot
 link_default river river River
 link_default waybar waybar Waybar
+link_default wofi wofi Wofi
 
 link_file_direct "${DOTS}/homedir/.bashrc" "${HOME}/.bashrc" "Bash config"
 link_file_direct "${DOTS}/homedir/.gitconfig" "${HOME}/.gitconfig" "Git config"
