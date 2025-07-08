@@ -110,6 +110,7 @@ riverctl spawn waybar
 riverctl map normal Super b spawn "pkill -USR1 waybar"
 
 swaybg -i ~/Pictures/wallpapers/current-wallpaper &
+signal-desktop --start-in-tray &
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
