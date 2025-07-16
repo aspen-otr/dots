@@ -5,8 +5,12 @@ window#waybar {
     color: #5c6773;
 }
 
+window#waybar #tray {
+    padding-left: 1em;
+}
+
 window#waybar #clock {
-    padding-right: 2em;
+    padding-right: 1em;
 }
 
 window#waybar #tags button {

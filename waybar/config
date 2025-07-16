@@ -3,7 +3,7 @@
     "layer": "top",
     "output": "eDP-1",
     "modules-left": ["river/tags", "river/mode"],
-    "modules-right": ["clock", "tray"],
+    "modules-right": ["clock", "battery", "tray"],
 
     "river/tags": {
         "num-tags": 10,
@@ -12,5 +12,8 @@
     },
     "tray": {
         "icon-size": 23
+    },
+    "battery": {
+        "format": "Bat: {capacity}%"
     }
 }
