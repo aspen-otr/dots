@@ -4,6 +4,7 @@
 [user]
 	name = Aspen Price
 	email = sam@typicalsamprice.com
+	signingkey = BA4E6862DF71110D
 
 [alias]
 	s = status --short --branch
