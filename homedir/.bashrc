@@ -11,3 +11,4 @@ alias grep=rg
 PS1='[\u@\h:\W]\$ '
 
 export PATH="${PATH}:${HOME}/.local/bin"
+export GPG_TTY=$(tty)
