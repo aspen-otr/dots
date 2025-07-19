@@ -109,6 +109,10 @@ riverctl spawn waybar
 # Toggle waybar
 riverctl map normal Super b spawn "pkill -USR1 waybar"
 
+riverctl spawn mako
+riverctl map normal Super - spawn "makoctl dismiss"
+riverctl map normal Super = spawn "makoctl restore"
+
 swaybg -i ~/Pictures/wallpapers/current-wallpaper &
 signal-desktop --start-in-tray &
 
