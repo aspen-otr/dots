@@ -36,6 +36,7 @@ link_file_direct() {
 }
 
 link_default nvim nvim Neovim
+link_default zathura zathura Zathura
 link_default foot foot Foot
 link_default river river River
 link_default waybar waybar Waybar
