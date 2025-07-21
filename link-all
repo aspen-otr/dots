@@ -41,6 +41,7 @@ link_default foot foot Foot
 link_default river river River
 link_default waybar waybar Waybar
 link_default wofi wofi Wofi
+link_default gtk-3.0 gtk-3.0 "GTK 3"
 
 link_file_direct "${DOTS}/homedir/.bashrc" "${HOME}/.bashrc" "Bash config"
 link_file_direct "${DOTS}/homedir/.gitconfig" "${HOME}/.gitconfig" "Git config"
