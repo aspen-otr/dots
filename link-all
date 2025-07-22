@@ -69,7 +69,7 @@ link_file_direct "${DOTS}/homedir/.gitconfig" "${HOME}/.gitconfig" "Git config"
 printf "%s\n" "------------ EWW CONFIGURATION ---------------"
 
 EWW_BIN="${DOTS}/eww/local-clone/target/release/eww"
-if ! $(command -v eww 2>&1 >/dev/null); then
+if ! command -v eww 2&>1 >/dev/null; then
     printf "%s\n" "------ EWW BINARY NOT FOUND, BUILDING -------------"
     cd "${DOTS}/eww/local-clone/"
     cargo build --release --no-default-features --features=wayland
@@ -79,12 +79,9 @@ if ! $(command -v eww 2>&1 >/dev/null); then
         printf "%s\n" "---- FAILED TO BUILD EWW BINARY, EXITING -------"
         exit 0
     fi
-    printf "%s\n" "------ EWW BINARY NOT FOUND, BUILDING -------------"
     cd -
-    if [ -z $? ]; then
-        chmod +x "${EWW_BIN}"
-        link_file_direct "${EWW_BIN}" "${LOCAL_BIN}/eww" "EWW Binary"
-    fi
+    chmod +x "${EWW_BIN}"
+    link_file_direct "${EWW_BIN}" "${LOCAL_BIN}/eww" "EWW Binary"
 fi
 
-link_folder_direct "${DOTS}/eww/config/" "${CONF_DIR}/eww/" "EWW Config"
+link_folder_direct "${DOTS}/eww/config" "${CONF_DIR}/eww" "EWW Config"
