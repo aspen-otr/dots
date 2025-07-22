@@ -1,0 +1,3 @@
+[submodule "eww/local-clone"]
+	path = eww/local-clone
+	url = https://github.com/elkowar/eww
