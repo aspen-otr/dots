@@ -1,0 +1,13 @@
+(defvar user-name "unitialized username")
+
+(defwindow ex
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "20px"
+                        :width "90%"
+                        :height "30px"
+                        :anchor "top center")
+    :stacking "fg"
+    :focusable "none"
+    :exclusive true
+  "example co ${user-name}")

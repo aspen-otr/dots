@@ -1,0 +1,8 @@
+#!/bin/bash
+
+eww daemon
+if [ $? != 0 ]; then
+    exit 1
+fi
+
+eww update user-name="$(./scripts/user-full-name)"
