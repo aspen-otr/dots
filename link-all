@@ -85,3 +85,13 @@ if ! command -v eww 2&>1 >/dev/null; then
 fi
 
 link_folder_direct "${DOTS}/eww/config" "${CONF_DIR}/eww" "EWW Config"
+
+if ! [[ -f "${CONF_DIR}/eww/scripts/battery-tooltip" ]]; then
+    cd "${CONF_DIR}/eww/scripts/"
+    rustc battery-tooltip.rs
+    EC=$?
+    cd -
+    if ! [[ $EC == 0 ]]; then
+        printf "%s\n" "Failed to compile battery-tooltip.rs"
+    fi
+fi
