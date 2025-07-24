@@ -1,10 +1,10 @@
-(defvar user-name "unitialized username")
+(include "./init-vars.yuck")
 
-(defwindow ex
+(defwindow bar-primary
     :monitor 0
     :geometry (geometry :x "0%"
-                        :y "20px"
-                        :width "90%"
+                        :y "10px"
+                        :width "99%"
                         :height "30px"
                         :anchor "top center")
     :stacking "fg"

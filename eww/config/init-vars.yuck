@@ -1,0 +1,2 @@
+(defvar user-name "UNINITIALIZED")
+(defvar host-name "UNINITIALIZED")

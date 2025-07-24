@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ristate -vt | jq '.["viewstag"]["BOE"] | unique'

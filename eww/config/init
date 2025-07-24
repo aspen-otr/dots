@@ -1,8 +1,6 @@
 #!/bin/bash
 
 eww daemon
-if [ $? != 0 ]; then
-    exit 1
-fi
 
+eww update host-name="$(cat /etc/hostname)"
 eww update user-name="$(./scripts/user-full-name)"
