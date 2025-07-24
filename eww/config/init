@@ -1,6 +1,0 @@
-#!/bin/bash
-
-eww daemon
-
-eww update host-name="$(cat /etc/hostname)"
-eww update user-name="$(./scripts/user-full-name)"

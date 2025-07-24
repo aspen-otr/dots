@@ -1,13 +1,26 @@
-(include "./init-vars.yuck")
+(include "./vars.yuck")
 
-(defwindow bar-primary
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (current-window)
+    (sidestuff)))
+
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "h" :halign "start" "WORKSPACES"))
+(defwidget current-window []
+  (box :class "current-window" :orientation "h" :halign "center" "${USER} at ${HOST}"))
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :halign "end" "SIDESTUFF"))
+
+(defwindow bar
     :monitor 0
     :geometry (geometry :x "0%"
                         :y "10px"
                         :width "99%"
-                        :height "30px"
+                        :height "40px"
                         :anchor "top center")
     :stacking "fg"
     :focusable "none"
     :exclusive true
-  "example co ${user-name}")
+  (bar))

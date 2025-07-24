@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 riverctl map normal Super Return spawn foot
 riverctl map normal Super P spawn "wofi -b --show=drun"
@@ -98,9 +98,11 @@ riverctl border-color-unfocused 0x586e75
 riverctl set-repeat 50 300
 riverctl keyboard-layout -options "caps:escape" us
 
-riverctl input pointer-2362-628-PIXA3854:00_093A:0274_Touchpad tap enabled
-riverctl input pointer-2362-628-PIXA3854:00_093A:0274_Touchpad scroll-method two-finger
-riverctl input pointer-2362-628-PIXA3854:00_093A:0274_Touchpad natural-scroll enabled
+TOUCHPAD_ID="pointer-2362-628-PIXA3854:00_093A:0274_Touchpad"
+
+riverctl input $TOUCHPAD_ID tap enabled
+riverctl input $TOUCHPAD_ID scroll-method two-finger
+riverctl input $TOUCHPAD_ID natural-scroll enabled
 
 riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id "firefox" ssd
@@ -113,13 +115,16 @@ swaybg -i ~/Pictures/wallpapers/current-wallpaper &
 signal-desktop --start-in-tray &
 
 ### BAR ###
-~/.config/eww/init
+if [[ ! $(pidof eww) ]]; then
+    eww daemon
+fi
 
-riverctl map normal Super b spawn "eww open --toggle bar-primary"
+eww open bar
+
+riverctl map normal Super b spawn "eww open --toggle bar"
 
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
-
+rivertile &
