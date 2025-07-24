@@ -73,13 +73,13 @@ if ! command -v eww 2&>1 >/dev/null; then
     printf "%s\n" "------ EWW BINARY NOT FOUND, BUILDING -------------"
     cd "${DOTS}/eww/local-clone/"
     cargo build --release --no-default-features --features=wayland
-    if ! [ -z $? ]; then
+    cd -
+    if ! [[ $? == 0 ]]; then
         printf "%s\n" "------------ EWW BINARY BUILT ----------"
     else
         printf "%s\n" "---- FAILED TO BUILD EWW BINARY, EXITING -------"
         exit 0
     fi
-    cd -
     chmod +x "${EWW_BIN}"
     link_file_direct "${EWW_BIN}" "${LOCAL_BIN}/eww" "EWW Binary"
 fi
