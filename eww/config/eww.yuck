@@ -1,5 +1,7 @@
 (include "./vars.yuck")
 
+(deflisten CURRENT-WINDOW-TITLE "ristate -w")
+
 (defwidget bar []
   (centerbox :orientation "h"
     (workspaces)
@@ -9,15 +11,16 @@
 (defwidget workspaces []
   (box :class "workspaces" :orientation "h" :halign "start" "WORKSPACES"))
 (defwidget current-window []
-  (box :class "current-window" :orientation "h" :halign "center" "${USER} at ${HOST}"))
+  (box :class "current-window" :orientation "h" :halign "center" {jq(CURRENT-WINDOW-TITLE, ".title", "r")}))
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :halign "end" "SIDESTUFF"))
 
 (defwindow bar
     :monitor 0
-    :geometry (geometry :x "0%"
+    ;; built for my framework 2560x1600 laptop.
+    :geometry (geometry :x "0px"
                         :y "10px"
-                        :width "99%"
+                        :width "2536px"
                         :height "40px"
                         :anchor "top center")
     :stacking "fg"
