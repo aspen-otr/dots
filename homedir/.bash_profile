@@ -1,4 +1,6 @@
 export XDG_CONFIG_HOME="${HOME}/.config"
+export HOSTNAME="$(cat /etc/hostname)"
+export PATH="${PATH}:${HOME}/.local/bin"
 
 [ -f "~/.bashrc" ] && source ~/.bashrc
 
