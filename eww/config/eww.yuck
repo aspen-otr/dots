@@ -4,6 +4,7 @@
 
 (defpoll BATTERYPERC :interval "3m" "acpi -b | cut -d, -f2 | tr -d ' '")
 (defpoll BATTERY-TOOLTIP
+  :initial "tooltip script not found"
   :interval "3m" "scripts/battery-tooltip")
 
 (defwidget bar []
