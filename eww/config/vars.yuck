@@ -1,4 +1,0 @@
-(defpoll USER :interval "10m" `scripts/user-full-name`)
-(defvar HOST {get_env("HOSTNAME") ?: "hostname not found" })
-
-(defpoll TIME :interval "1m" `date +'%H:%M'`)
