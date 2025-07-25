@@ -23,7 +23,18 @@
 }
 
 .urgent-tag {
-  color: #ff3333;
+  animation-name: urgent-tag--anim;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes urgent-tag--anim {
+  from {
+    color: #ff3333;
+  }
+  to {
+    color: #cbccc6;
+  }
 }
 
 .sidestuff {
