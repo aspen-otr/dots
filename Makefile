@@ -1,4 +1,4 @@
-.PHONY: help stow eww
+.PHONY: help stow eww ayu-gtk
 
 LOCAL_BIN ?= ${HOME}/.local/bin
 
@@ -17,6 +17,12 @@ unstow:
 
 # Shorthand
 eww: ${LOCAL_BIN}/eww
+
+ayu-gtk:
+	cd ayu-gtk/ && \
+	sed -i 's/\[GNOME_VERSION=.*\]/[GNOME_VERSION="3.22.0"]/' m4/arc-gnome.m4 && \
+	./autogen.sh --prefix=/usr && \
+	sudo $(MAKE) install
 
 ${PWD}/eww-src/target/release/eww:
 	cd eww-src && cargo build --quiet --release
