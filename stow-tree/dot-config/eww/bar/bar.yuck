@@ -7,17 +7,20 @@
 (defpoll BATTERY-TOOLTIP
   :initial "tooltip script not found"
   :interval "3m" "scripts/battery-tooltip")
-(deflisten VOLUME "pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
+(deflisten VOLUME "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
+
+(defpoll USER :interval "30m" "scripts/user-full-name")
 
 (defwidget bar []
-  (centerbox :orientation "h"
+  (centerbox
+    :orientation "h"
     (workspaces)
     (current-window)
     (sidestuff)))
 
 (defwidget current-window []
   (box :class "current-window" :orientation "h" :halign "center"
-    (label :text {CURRENT-WINDOW-TITLE["title"]}
+    (label :text {CURRENT-WINDOW-TITLE["title"] ?: USER}
            :limit-width 80
            :unindent true
            :lines 1)))

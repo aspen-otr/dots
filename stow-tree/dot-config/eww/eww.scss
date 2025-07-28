@@ -1,17 +1,19 @@
 * {
   all: unset;
+  background-color: #1f2430;
+  font-family: "IosevkaTermSlab NFP";
+  font-size: large;
+  color: #cbccc6;
+  border-radius: 10px;
 }
 
 // https://i.imgur.com/jlU8jVp.png
 .bar {
-  background-color: #1f2430;
-  color: #cbccc6;
-  font-family: "IosevkaTermSlab NFP";
-  font-size: large;
+  background-color: transparent;
 }
 
 .workspaces {
-  padding-left: 10px;
+  padding: 0px 10px;
 }
 
 .active-tag {
@@ -37,6 +39,14 @@
   }
 }
 
+.current-window.empty {
+  background-color: transparent;
+}
+
+.current-window {
+  padding: 0px 10px;
+}
+
 .sidestuff {
-  padding-right: 10px;
+  padding: 0px 10px;
 }
