@@ -8,6 +8,7 @@ help:
 	@echo "stow		stow dotfiles to their appropriate places"
 	@echo "unstow		unstow dotfiles, effectively removing them until re-stowed"
 	@echo "eww		build, if necessary, and then link to LOCAL_BIN (default ~/.local/bin/, currently ${LOCAL_BIN}) the eww executable"
+	@echo "ayu-gtk		build and then install the Ayu Mirage GTK theme"
 
 stow:
 	stow --dotfiles -t ${HOME} -v stow-tree
