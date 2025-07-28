@@ -1,0 +1,33 @@
+window.eDP-1 * { font-size: 17px; font-family: "IosevkaTermSlab Nerd Font"; }
+
+window#waybar {
+    background-color: #1f2430;
+    color: #5c6773;
+}
+
+window#waybar #tray {
+    padding-left: 1em;
+}
+
+window#waybar #clock {
+    padding-right: 1em;
+}
+
+window#waybar #tags button {
+    color: #5c6773; /* Necessary because... idk?  */
+}
+
+window#waybar #tags button.occupied {
+    background-color: #2f3440;
+    color: #73d0ff;
+}
+
+window#waybar #tags button.focused {
+    background-color: #4f545f;
+    color: #bae67e;
+}
+
+window#waybar #tags button.urgent {
+    background-color: #ffe6b3;
+    color: #f28779;
+}

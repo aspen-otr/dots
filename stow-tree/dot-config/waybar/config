@@ -1,0 +1,19 @@
+// vim: ft=jsonc
+{
+    "layer": "top",
+    "output": "eDP-1",
+    "modules-left": ["river/tags", "river/mode"],
+    "modules-right": ["clock", "battery", "tray"],
+
+    "river/tags": {
+        "num-tags": 10,
+        "tag-labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        "disable-click": true
+    },
+    "tray": {
+        "icon-size": 23
+    },
+    "battery": {
+        "format": "Bat: {capacity}%"
+    }
+}

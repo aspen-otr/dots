@@ -1,0 +1,42 @@
+* {
+  all: unset;
+}
+
+// https://i.imgur.com/jlU8jVp.png
+.bar {
+  background-color: #1f2430;
+  color: #cbccc6;
+  font-family: "IosevkaTermSlab NFP";
+  font-size: large;
+}
+
+.workspaces {
+  padding-left: 10px;
+}
+
+.active-tag {
+  color: #f28776;
+}
+
+.occupied-tag {
+  color: #bae67e;
+}
+
+.urgent-tag {
+  animation-name: urgent-tag--anim;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes urgent-tag--anim {
+  from {
+    color: #ff3333;
+  }
+  to {
+    color: #cbccc6;
+  }
+}
+
+.sidestuff {
+  padding-right: 10px;
+}

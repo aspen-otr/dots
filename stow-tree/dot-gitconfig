@@ -1,0 +1,12 @@
+[init]
+	defaultBranch = main
+
+[user]
+	name = Aspen Price
+	email = aspen@aspen-otr.com
+	signingkey = BA4E6862DF71110D
+
+[alias]
+	s = status --short --branch
+	l = log --oneline
+	p = push
