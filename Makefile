@@ -5,8 +5,9 @@ LOCAL_BIN ?= ${HOME}/.local/bin
 help:
 	@echo "Makefile for Aspen's dotfiles & related builds"
 	@echo "Targets:"
-	@echo "  stow		stow dotfiles to their appropriate places"
-	@echo "  eww		build, if necessary, and then link to LOCAL_BIN (default ~/.local/bin/, currently ${LOCAL_BIN}) the eww executable"
+	@echo "stow		stow dotfiles to their appropriate places"
+	@echo "unstow		unstow dotfiles, effectively removing them until re-stowed"
+	@echo "eww		build, if necessary, and then link to LOCAL_BIN (default ~/.local/bin/, currently ${LOCAL_BIN}) the eww executable"
 
 stow:
 	stow --dotfiles -t ${HOME} -v stow-tree
