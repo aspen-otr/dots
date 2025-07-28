@@ -1,1 +1,58 @@
-(include "bar/bar.yuck")
+(deflisten CURRENT-WINDOW-TITLE "ristate -w")
+
+(include "bar/workspaces.yuck")
+
+(defpoll TIME :interval "1m" "date +'%I:%M'")
+(defpoll BATTERYPERC :interval "3m" "acpi -b | cut -d, -f2 | tr -d ' '")
+(defpoll BATTERY-TOOLTIP
+  :initial "tooltip script not found"
+  :interval "3m" "scripts/battery-tooltip")
+(deflisten VOLUME "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
+
+(defpoll USER :interval "30m" "scripts/user-full-name")
+
+(defwidget bar []
+  (centerbox
+    :orientation "h"
+    (workspaces)
+    (current-window)
+    (sidestuff)))
+
+(defwidget current-window []
+  (box :class "current-window" :orientation "h" :halign "center"
+    (label :text {CURRENT-WINDOW-TITLE["title"] ?: USER}
+           :limit-width 80
+           :unindent true
+           :lines 1)))
+
+;; TODO
+;;; Hover on battery -> shows estimated remaining time, or charge time
+;;; Hover on time -> show date (pull from calendar[s]?)
+(defwidget sidestuff []
+  (box :class "sidestuff"
+       :orientation "h"
+       :space-evenly true
+       :halign "end"
+       :spacing 5
+    (volume)
+    (battery)
+    (time)))
+
+(defwidget volume [] "Vol: ${VOLUME}")
+(defwidget time [] TIME)
+(defwidget battery [] (tooltip
+                        (box :orientation "h" :space-evenly false BATTERY-TOOLTIP)
+                        (box :orientation "h" :space-evenly false "Battery: " BATTERYPERC)))
+
+(defwindow bar
+    :monitor 0
+    ;; built for my framework 2560x1600 laptop.
+    :geometry (geometry :x "0px"
+                        :y "10px"
+                        :width "2536px"
+                        :height "40px"
+                        :anchor "top center")
+    :stacking "fg"
+    :focusable "none"
+    :exclusive true
+  (bar))
