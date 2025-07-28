@@ -1,3 +1,7 @@
 [submodule "eww-src"]
 	path = eww-src
 	url = https://github.com/elkowar/eww
+[submodule "ayu-gtk"]
+	path = ayu-gtk
+	url = https://github.com/dnordstrom/ayu-theme
+	branch = ayu-mirage
