@@ -11,6 +11,9 @@ help:
 stow:
 	stow --dotfiles -t ${HOME} -v stow-tree
 
+unstow:
+	stow --dotfiles -t ${HOME} -v -D stow-tree
+
 # Shorthand
 eww: ${LOCAL_BIN}/eww
 
