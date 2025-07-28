@@ -7,7 +7,7 @@
 (defpoll BATTERY-TOOLTIP
   :initial "tooltip script not found"
   :interval "3m" "scripts/battery-tooltip")
-(defpoll VOLUME :interval "2s" "pamixer --get-volume-human")
+(deflisten VOLUME "pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
 
 (defwidget bar []
   (centerbox :orientation "h"
