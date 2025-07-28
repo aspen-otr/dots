@@ -19,9 +19,7 @@ unstow:
 eww: ${LOCAL_BIN}/eww
 
 ${PWD}/eww-src/target/release/eww:
-	@cd eww-src
-	cargo build --quiet --release
-	@cd -
+	cd eww-src && cargo build --quiet --release
 
 ${LOCAL_BIN}/eww: ${PWD}/eww-src/target/release/eww
 	@mkdir -p $(@D)
