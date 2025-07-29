@@ -5,6 +5,8 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export HOSTNAME="$(cat /etc/hostname)"
 export PATH="${PATH}:${HOME}/.local/bin"
 
+export EDITOR="nvim"
+
 [ -f "~/.bashrc" ] && source ~/.bashrc
 [ ! -s ~/.cache/mpd/pid ] && mpd
 

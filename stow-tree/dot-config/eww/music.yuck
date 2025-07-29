@@ -1,0 +1,5 @@
+(deflisten NOW-PLAYING
+  :initial "n/a"
+  "mpc -f '%artist% - %title%' current; scripts/mpd-now-playing")
+
+(defwidget mpd [] (label :class "pad-sides" :text NOW-PLAYING))

@@ -1,11 +1,16 @@
 (include "workspaces.yuck")
 (include "current-window.yuck")
 (include "sidestuff.yuck")
+(include "music.yuck")
 
 (defwidget bar []
   (centerbox
     :orientation "h"
-    (workspaces)
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 5 
+         :class "transparent"
+      (workspaces) (mpd))
     (current-window)
     (sidestuff)))
 
