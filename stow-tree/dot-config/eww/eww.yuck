@@ -2,7 +2,7 @@
 
 (include "bar/workspaces.yuck")
 
-(defpoll TIME :interval "1m" "date +'%I:%M'")
+(defpoll TIME :interval "1m" "date +'%I:%M %p'")
 (defpoll BATTERYPERC :interval "3m" "acpi -b | cut -d, -f2 | tr -d ' '")
 (defpoll BATTERY-TOOLTIP
   :initial "tooltip script not found"
@@ -26,7 +26,6 @@
            :lines 1)))
 
 ;; TODO
-;;; Hover on battery -> shows estimated remaining time, or charge time
 ;;; Hover on time -> show date (pull from calendar[s]?)
 (defwidget sidestuff []
   (box :class "sidestuff"
