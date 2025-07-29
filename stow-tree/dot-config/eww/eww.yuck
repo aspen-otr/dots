@@ -1,15 +1,6 @@
-(deflisten CURRENT-WINDOW-TITLE "ristate -w")
-
-(include "bar/workspaces.yuck")
-
-(defpoll TIME :interval "1m" "date +'%I:%M %p'")
-(defpoll BATTERYPERC :interval "3m" "acpi -b | cut -d, -f2 | tr -d ' '")
-(defpoll BATTERY-TOOLTIP
-  :initial "tooltip script not found"
-  :interval "3m" "scripts/battery-tooltip")
-(deflisten VOLUME "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
-
-(defpoll USER :interval "30m" "scripts/user-full-name")
+(include "workspaces.yuck")
+(include "current-window.yuck")
+(include "sidestuff.yuck")
 
 (defwidget bar []
   (centerbox
@@ -17,31 +8,6 @@
     (workspaces)
     (current-window)
     (sidestuff)))
-
-(defwidget current-window []
-  (box :class "current-window" :orientation "h" :halign "center"
-    (label :text {CURRENT-WINDOW-TITLE["title"] ?: USER}
-           :limit-width 80
-           :unindent true
-           :lines 1)))
-
-;; TODO
-;;; Hover on time -> show date (pull from calendar[s]?)
-(defwidget sidestuff []
-  (box :class "sidestuff"
-       :orientation "h"
-       :space-evenly true
-       :halign "end"
-       :spacing 5
-    (volume)
-    (battery)
-    (time)))
-
-(defwidget volume [] "Vol: ${VOLUME}")
-(defwidget time [] TIME)
-(defwidget battery [] (tooltip
-                        (box :orientation "h" :space-evenly false BATTERY-TOOLTIP)
-                        (box :orientation "h" :space-evenly false "Battery: " BATTERYPERC)))
 
 (defwindow bar
     :monitor 0

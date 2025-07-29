@@ -1,8 +1,12 @@
 export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+
 export HOSTNAME="$(cat /etc/hostname)"
 export PATH="${PATH}:${HOME}/.local/bin"
 
 [ -f "~/.bashrc" ] && source ~/.bashrc
+[ ! -s ~/.cache/mpd/pid ] && mpd
 
 if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
     exec river

@@ -1,3 +1,4 @@
+// https://i.imgur.com/jlU8jVp.png
 * {
   all: unset;
   background-color: #1f2430;
@@ -7,13 +8,16 @@
   border-radius: 10px;
 }
 
-// https://i.imgur.com/jlU8jVp.png
-.bar {
+.pad-sides {
+  padding: 0px 10px;
+}
+
+.transparent {
   background-color: transparent;
 }
 
-.workspaces {
-  padding: 0px 10px;
+.bar {
+  background-color: transparent;
 }
 
 .active-tag {
@@ -37,12 +41,4 @@
   to {
     color: #cbccc6;
   }
-}
-
-.current-window {
-  padding: 0px 10px;
-}
-
-.sidestuff {
-  padding: 0px 10px;
 }

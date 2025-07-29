@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+eval "$(eww shell-completions --shell bash)"
+
 alias ls='eza -a'
 alias ll='ls -l'
 alias grep=rg
