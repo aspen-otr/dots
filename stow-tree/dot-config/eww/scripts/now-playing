@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+PLAYER="$(eww get PLAYER)"
+
+case $PLAYER in
+    mpd)
+        mpc -f "%title% - %artist%" current
+        eww update "PLAYER-STATUS=$(mpc status '%state%')"
+        while true; do
+            mpc idle player >/dev/null
+            mpc -f "%title% - %artist%" current
+            eww update "PLAYER-STATUS=$(mpc status '%state%')"
+        done
+        ;;
+    *)
+        notify-send "EWW Now Playing" "No working $PLAYER Now Playing implementation"
+        ;;
+esac

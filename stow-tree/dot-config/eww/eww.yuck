@@ -10,7 +10,7 @@
          :space-evenly false
          :spacing 5 
          :class "transparent"
-      (workspaces) (mpd))
+      (workspaces) (music))
     (current-window)
     (sidestuff)))
 

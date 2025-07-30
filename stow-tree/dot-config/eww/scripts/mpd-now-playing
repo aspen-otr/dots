@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-while true; do
-    mpc idle player >/dev/null && mpc -f '%title% - %artist%' current
-done

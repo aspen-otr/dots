@@ -1,5 +1,11 @@
-(deflisten NOW-PLAYING
-  :initial "n/a"
-  "mpc -f '%artist% - %title%' current; scripts/mpd-now-playing")
+(deflisten NOW-PLAYING :initial "n/a" "scripts/now-playing")
 
-(defwidget mpd [] (label :class "pad-sides" :text NOW-PLAYING))
+(defvar PAUSE-ICON "")
+(defvar PLAY-ICON "")
+(defvar STOP-ICON " ")
+(defvar PLAYER "mpd")
+(defvar PLAYER-STATUS "stopped")
+(defvar SPOTIFY-CLASS "") ; "spotify-playing" if desired, to set background to spotify's green and use black text
+
+(defwidget music [] (label :class "pad-sides ${SPOTIFY-CLASS}"
+                      :text "${PLAYER-STATUS == "playing" ? PLAY-ICON : PLAYER-STATUS == "paused" ? PAUSE-ICON : STOP-ICON} ${NOW-PLAYING}"))
