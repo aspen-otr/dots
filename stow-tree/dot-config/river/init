@@ -102,6 +102,7 @@ TOUCHPAD_ID="pointer-2362-628-PIXA3854:00_093A:0274_Touchpad"
 riverctl input $TOUCHPAD_ID tap enabled
 riverctl input $TOUCHPAD_ID scroll-method two-finger
 riverctl input $TOUCHPAD_ID natural-scroll enabled
+riverctl input $TOUCHPAD_ID disable-while-typing enabled
 
 riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id "firefox" ssd
