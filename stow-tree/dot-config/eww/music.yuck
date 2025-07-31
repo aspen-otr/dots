@@ -8,4 +8,5 @@
 (defvar SPOTIFY-CLASS "") ; "spotify-playing" if desired, to set background to spotify's green and use black text
 
 (defwidget music [] (label :class "pad-sides ${SPOTIFY-CLASS}"
+                      :limit-width 50
                       :text "${PLAYER-STATUS == "playing" ? PLAY-ICON : PLAYER-STATUS == "paused" ? PAUSE-ICON : STOP-ICON} ${NOW-PLAYING}"))
