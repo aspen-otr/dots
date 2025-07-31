@@ -5,3 +5,4 @@
 	path = ayu-gtk
 	url = https://github.com/dnordstrom/ayu-theme
 	branch = ayu-mirage
+	ignore = dirty
