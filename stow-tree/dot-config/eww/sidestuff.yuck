@@ -5,8 +5,6 @@
   :interval "3m" "scripts/battery-tooltip")
 (deflisten VOLUME "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
 
-;; TODO
-;;; Hover on time -> show date (pull from calendar[s]?)
 (defwidget sidestuff []
   (box :class "sidestuff transparent"
        :orientation "h"
@@ -22,4 +20,3 @@
 (defwidget battery [] (tooltip :class "pad-sides"
                         (box :orientation "h" :space-evenly false BATTERY-TOOLTIP)
                         (box :orientation "h" :space-evenly false "  " BATTERYPERC)))
-
