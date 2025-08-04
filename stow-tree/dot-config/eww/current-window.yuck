@@ -1,9 +1,9 @@
-(deflisten CURRENT-WINDOW-TITLE "ristate -w")
-(defpoll USER :interval "30m" "scripts/user-full-name")
+(deflisten current-window-title :initial "{}" "ristate -w")
+(defpoll user :interval 0 "notify-send 'hello' 'test'")
 
 (defwidget current-window []
   (box :class "current-window pad-sides" :orientation "h" :halign "center"
-    (label :text {CURRENT-WINDOW-TITLE["title"] ?: USER}
+    (label :text {current-window-title.title ?: user}
            :limit-width 80
            :unindent true
            :lines 1)))

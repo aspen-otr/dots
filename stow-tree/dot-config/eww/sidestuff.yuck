@@ -1,9 +1,8 @@
-(defpoll TIME :interval "1m" "date +'%I:%M'")
-(defpoll BATTERYPERC :interval "3m" "acpi -b | cut -d, -f2 | tr -d ' '")
-(defpoll BATTERY-TOOLTIP
+(defpoll time :initial "{}" :interval "1m" `date +'{"hour": "%I", "minute": "%M"}'`)
+(defpoll battery-tooltip
   :initial "tooltip script not found"
   :interval "3m" "scripts/battery-tooltip")
-(deflisten VOLUME "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
+(deflisten volume "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
 
 (defwidget sidestuff []
   (box :class "sidestuff transparent"
@@ -11,12 +10,12 @@
        :space-evenly false
        :halign "end"
        :spacing 5
-    (volume)
-    (battery)
-    (time)))
+    (volume-w)
+    (battery-w)
+    (time-w)))
 
-(defwidget volume [] (label :class "pad-sides" :text `${VOLUME == "muted" ? "" : " "} ${VOLUME != "muted" ? VOLUME : "mute" }`))
-(defwidget time [] (label :class "pad-sides" :text "  ${TIME}"))
-(defwidget battery [] (tooltip :class "pad-sides"
-                        (box :orientation "h" :space-evenly false BATTERY-TOOLTIP)
-                        (box :orientation "h" :space-evenly false "  " BATTERYPERC)))
+(defwidget volume-w [] (label :class "pad-sides" :text `${volume == "muted" ? "" : " "} ${volume != "muted" ? volume : "0% (mute)" }`))
+(defwidget time-w [] (label :class "pad-sides" :text "  ${time.hour}:${time.minute}"))
+(defwidget battery-w [] (tooltip :class "pad-sides"
+                        (box :orientation "h" :space-evenly false battery-tooltip)
+                        (box :orientation "h" :space-evenly false `${EWW_BATTERY.BAT1.status == "Charging" ? "" : " "} ${EWW_BATTERY.BAT1.capacity}%`)))
