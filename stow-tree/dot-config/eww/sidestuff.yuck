@@ -4,16 +4,6 @@
   :interval "3m" "scripts/battery-tooltip")
 (deflisten volume "pamixer --get-volume-human; pactl subscribe | rg 'sink' --line-buffered | xargs -n1 pamixer --get-volume-human")
 
-(defwidget sidestuff []
-  (box :class "sidestuff transparent"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 5
-    (volume-w)
-    (battery-w)
-    (time-w)))
-
 (defwidget volume-w [] (label :class "pad-sides" :text `${volume == "muted" ? "" : " "} ${volume != "muted" ? volume : "0% (mute)" }`))
 (defwidget time-w [] (label :class "pad-sides" :text "  ${time.hour}:${time.minute}"))
 (defwidget battery-w [] (tooltip :class "pad-sides"

@@ -3,23 +3,36 @@
 (include "sidestuff.yuck")
 (include "music.yuck")
 
+(defwidget bar-left-s []
+  (box :orientation "h"
+       :space-evenly false
+       :spacing 5
+       :class "transparent"
+    (workspaces)(music)))
+(defwidget bar-center-s [] (current-window))
+(defwidget bar-right-s [] 
+  (box :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 5
+       :class "sidestuff transparent"
+    (volume-w)
+    (battery-w)
+    (time-w)))
+
 (defwidget bar []
   (centerbox
     :orientation "h"
-    (box :orientation "h"
-         :space-evenly false
-         :spacing 5 
-         :class "transparent"
-      (workspaces) (music))
-    (current-window)
-    (sidestuff)))
+    (bar-left-s)
+    (bar-center-s)
+    (bar-right-s)))
 
-(defwindow bar
+(defwindow bar [width]
     :monitor 0
     ;; built for my framework 2560x1600 laptop.
     :geometry (geometry :x "0px"
                         :y "10px"
-                        :width "2536px"
+                        :width "${width}px"
                         :height "40px"
                         :anchor "top center")
     :stacking "fg"
