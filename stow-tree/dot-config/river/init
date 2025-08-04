@@ -121,9 +121,12 @@ if [[ ! $(pidof eww) ]]; then
     eww daemon
 fi
 
-eww open bar
+SCR_W=$(wlr-randr --json | jq "map(select(.enabled == true)) | .[].modes |= map(select(.current == true)) | .[0].modes[0].width")
+PADDING_CONST=6
+BAR_WIDTH=$((SCR_W - 4 * $PADDING_CONST));
+eww open bar --arg width="$BAR_WIDTH"
 
-riverctl map normal Super b spawn "eww open --toggle bar"
+riverctl map normal Super b spawn "eww open --toggle bar --arg width=$BAR_WIDTH"
 
 mpc repeat on
 mpc random on
