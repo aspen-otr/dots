@@ -1,5 +1,5 @@
 [core]
-        editor = "nvim"
+	editor = "nvim"
 
 [init]
 	defaultBranch = main
@@ -23,3 +23,5 @@
 	c = commit
 	cm = c -m
 	cs = c -S
+	commit-count = "!git log --oneline | wc -l"
+	last = log -1 HEAD
