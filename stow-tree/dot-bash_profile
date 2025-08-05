@@ -8,7 +8,7 @@ export PATH="${PATH}:${HOME}/.local/bin"
 export EDITOR="nvim"
 
 [ -f "~/.bashrc" ] && source ~/.bashrc
-[ ! pgrep mpd ] && { rm -f ~/.cache/mpd/pid ; mpd ; }
+[ -z $(pgrep mpd) ] && { rm -f ~/.cache/mpd/pid ; mpd ; }
 
 if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
     exec river
