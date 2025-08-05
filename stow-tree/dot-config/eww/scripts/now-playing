@@ -5,11 +5,11 @@ PLAYER="$(eww get player)"
 case $PLAYER in
     mpd)
         mpc -f "%title% - %artist%" current
-        eww update "PLAYER-STATUS=$(mpc status '%state%')"
+        eww update "player-status=$(mpc status '%state%')"
         while true; do
             mpc idle player >/dev/null
             mpc -f "%title% - %artist%" current
-            eww update "PLAYER-STATUS=$(mpc status '%state%')"
+            eww update "player-status=$(mpc status '%state%')"
         done
         ;;
     *)
