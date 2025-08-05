@@ -1,12 +1,12 @@
-(deflisten NOW-PLAYING :initial "n/a" "scripts/now-playing")
+(deflisten now-playing :initial "n/a" "scripts/now-playing")
 
-(defvar PAUSE-ICON "")
-(defvar PLAY-ICON "")
-(defvar STOP-ICON " ")
-(defvar PLAYER "mpd")
-(defvar PLAYER-STATUS "stopped")
-(defvar SPOTIFY-CLASS "") ; "spotify-playing" if desired, to set background to spotify's green and use black text
+(defvar pause-icon "")
+(defvar play-icon "")
+(defvar stop-icon " ")
+(defvar player "mpd")
+(defvar player-status "stopped")
+(defvar spotify-class "") ; "spotify-playing" if desired, to set background to spotify's green and use black text
 
-(defwidget music [] (label :class "pad-sides ${SPOTIFY-CLASS}"
+(defwidget music [] (label :class "pad-sides ${spotify-class}"
                       :limit-width 50
-                      :text "${PLAYER-STATUS == "playing" ? PLAY-ICON : PLAYER-STATUS == "paused" ? PAUSE-ICON : STOP-ICON} ${NOW-PLAYING}"))
+                      :text "${player-status == "playing" ? play-icon : player-status == "paused" ? pause-icon : stop-icon} ${now-playing}"))

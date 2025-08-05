@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PLAYER="$(eww get PLAYER)"
+PLAYER="$(eww get player)"
 
 case $PLAYER in
     mpd)
