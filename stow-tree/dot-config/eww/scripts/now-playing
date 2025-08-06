@@ -12,6 +12,9 @@ case $PLAYER in
             eww update "player-status=$(mpc status '%state%')"
         done
         ;;
+	spotify)
+		playerctl -p spotify -F -f '{"status":"{{status}}","album":"{{album}}","title":"{{title}}","artist":"{{artist}}"}' metadata
+        ;;
     *)
         notify-send "EWW Now Playing" "No working $PLAYER Now Playing implementation"
         ;;

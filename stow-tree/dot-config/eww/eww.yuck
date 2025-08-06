@@ -3,6 +3,8 @@
 (include "sidestuff.yuck")
 (include "music.yuck")
 
+(include "dashboard.yuck")
+
 (defwidget bar-left-s []
   (box :orientation "h"
        :space-evenly false

@@ -2,7 +2,6 @@
 * {
   all: unset;
   background-color: #1f2430;
-  font-family: "M+CodeLat50 Nerd Font";
   font-size: 20px;
   color: #cbccc6;
   border-radius: 10px;
@@ -17,6 +16,11 @@
 }
 
 .bar {
+  background-color: transparent;
+  font-family: "M+CodeLat50 Nerd Font";
+}
+
+.dashboard {
   background-color: transparent;
 }
 
