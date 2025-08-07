@@ -13,7 +13,7 @@ case $PLAYER in
         done
         ;;
 	spotify)
-		playerctl -p spotify -F -f '{"status":"{{status}}","album":"{{album}}","title":"{{title}}","artist":"{{artist}}"}' metadata
+		playerctl -p spotify -F -f '{"status":"{{lc(status)}}","album":"{{album}}","title":"{{title}}","artist":"{{artist}}","artUrl":"{{artUrl}}"}' metadata
         ;;
     *)
         notify-send "EWW Now Playing" "No working $PLAYER Now Playing implementation"

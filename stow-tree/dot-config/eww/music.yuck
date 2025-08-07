@@ -1,7 +1,7 @@
-(deflisten now-playing :initial `{"status":"","artist":"","title":""}` "scripts/now-playing")
+(deflisten now-playing :initial `{"status":"","artist":"","title":"","album":"","artUrl":""}` "scripts/now-playing")
 
 (defvar pause-icon "")
-(defvar play-icon "")
+(defvar play-icon " ")
 (defvar stop-icon " ")
 (defvar player "spotify")
 (defvar player-status "stopped")
@@ -9,4 +9,4 @@
 
 (defwidget music [] (label :class "pad-sides ${spotify-class}"
                       :limit-width 50
-                      :text `${now-playing.status == "Playing" ? play-icon : pause-icon} ${now-playing.title} - ${now-playing.artist}`))
+                      :text `${now-playing.status == "playing" ? play-icon : pause-icon} ${now-playing.title} - ${now-playing.artist}`))
