@@ -2,6 +2,7 @@
 
 PLAYER="$(eww get player)"
 
+
 case $PLAYER in
     mpd)
         mpc -f "%title% - %artist%" current
@@ -13,7 +14,16 @@ case $PLAYER in
         done
         ;;
 	spotify)
-		playerctl -p spotify -F -f '{"status":"{{lc(status)}}","album":"{{album}}","title":"{{title}}","artist":"{{artist}}","artUrl":"{{artUrl}}"}' metadata
+		case "$1" in
+			--time)
+				ttime=$(playerctl -p spotify -f '{{mpris:length}}' metadata)
+				ttime_sec=$((ttime/1000000))
+				ctime=$(playerctl -p spotify position)
+				echo "{\"ttime\":\"$ttime_sec\", \"ctime\":\"$ctime\"}"
+				exit 0;
+				;;
+		esac
+		playerctl -p spotify -F -f '{"status":"{{lc(status)}}","album":"{{xesam:album}}","title":"{{xesam:title}}","artist":"{{xesam:artist}}","artUrl":"{{mpris:artUrl}}"}' metadata
         ;;
     *)
         notify-send "EWW Now Playing" "No working $PLAYER Now Playing implementation"
