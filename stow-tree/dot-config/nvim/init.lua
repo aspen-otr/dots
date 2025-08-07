@@ -8,6 +8,8 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.expandtab = false
 
+vim.opt.wrap = false
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
