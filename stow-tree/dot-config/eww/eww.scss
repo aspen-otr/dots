@@ -2,7 +2,7 @@
   all: unset;
 }
 
-$font: "M+CodeLat50 Nerd Font";
+$font: "Symbols Nerd Font", "RecMonoCasual Nerd Font Mono";
 $font-size: 20px;
 
 $bg: #1f2430;
@@ -16,32 +16,4 @@ $purple: #d4bfff;
 
 $error: #ff3333;
 
-$pill-corners: 20px;
-$pill-pad-h: 12px;
-
-.bar {
-  font-family: $font;
-  font-size: $font-size;
-  color: $fg;
-}
-
-.pill {
-  padding: 0px $pill-pad-h;
-  border-radius: $pill-corners;
-  background-color: $bg;
-}
-
-.tag-circle > .active {
-  color: $red;
-}
-.tag-circle > .occupied {
-  color: $green;
-}
-.tag-circle > .urgent {
-  color: $error;
-}
-
-.pill.low-battery {
-  background-color: mix($bg, $red, 15%);
-  color: $bg;
-}
+@import "bar/eww.scss"
