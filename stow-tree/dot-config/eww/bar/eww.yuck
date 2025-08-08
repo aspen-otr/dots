@@ -1,0 +1,99 @@
+;;;;;;;; POLLS, LISTENERS, VARIABLES ;;;;;;;; 
+
+;; suffixes:
+;;; -l -> listening var
+;;; -p -> polling var
+;;; -v -> regular defvar. if polling once (from my #883 fix) this is used.
+
+(deflisten ristate-l :initial "{}" `ristate -t -w -u -vt | stdbuf -o0 sed '/{"tags":{},"urgency":{},"viewstag":{}}/d'`)
+(defpoll user-v :interval 0 "echo $USER")
+(defpoll time-p :interval "1m" `date +'{"hour":"%_I","minute":"%M","ampm":"%P"}'`)
+
+(deflisten music-l :initial "{}" `playerctl -p spotify -F metadata -f '{"status":"{{lc(status)}}","artist":"{{xesam:artist}}","title":"{{xesam:title}}","album":"{{xesam:album}}","cover":"{{mpris:artUrl}}","length":"{{mpris:length}}"}'`)
+(defpoll music-p :interval "1s" "playerctl -p spotify position")
+
+(deflisten volume-l :initial "??%" "pamixer --get-volume-human; pactl subscribe | rg sink --line-buffered | xargs -n1 pamixer --get-volume-human")
+
+;;;;;;;; WIDGETS ;;;;;;;; 
+
+(defwidget workspaces []
+  (pill
+    (box
+      :spacing 10
+      :space-evenly true
+      (for index in "[1,2,3,4,5,6,7,8,9]"
+         (tag-circle :index index)))))
+
+(defwidget time []
+  (pill :spacing 7 ; Better to visually parse than a space IMO
+    (label :text " ")
+    (label :text "${time-p.hour}:${time-p.minute}${time-p.ampm == '' ? '' : ' '}${time-p.ampm}")))
+
+(defwidget volume []
+  (pill {volume-l == "muted" ? " 0% (muted)" : "  ${volume-l}"}))
+
+(defwidget battery []
+  (pill
+    :class {(EWW_BATTERY.BAT1.status != "Charging" && EWW_BATTERY.BAT1.capacity < 20) ? "low-battery" : "ok-battery"}
+    (label
+      :class "bar-battery-lbl"
+      :text `${EWW_BATTERY.BAT1.status == "Charging" ? "" : " "} ${EWW_BATTERY.BAT1.capacity}%`)))
+          
+
+(defwidget music []
+  (pill (label :limit-width 40 :text "  ${music-l.title} - ${music-l.artist}")))
+
+(defwidget current-window []
+  (pill (label :limit-width 50 :text {ristate-l?.title ?: user-v})))
+
+(defwidget tag-circle [index]
+  (eventbox
+    :onclick "riverctl set-focused-tags $(echo 2^${index - 1} | bc)"
+    :class "tag-circle"
+    (circular-progress
+      :value 100
+      :thickness 8
+      :class `${matches(ristate-l.tags, index) ? "active"
+                : matches(ristate-l.urgency, index) ? "urgent"
+                : matches(ristate-l.viewstag, index) ? "occupied" : "empty"}`)))
+
+(defwidget pill [?space-evenly ?orientation ?spacing ?halign ?class] ; pass through to underlying "box"
+  (box
+    :orientation {orientation ?: "h"}
+    :class "pill ${class}"
+    :space-evenly {space-evenly ?: false}
+    :spacing {spacing ?: 5}
+    :halign {halign ?: "center"}
+    (children)))
+
+(defwidget pill-box [halign]
+  (box
+    :class "pill-box"
+    :halign halign
+    :spacing 5
+    :space-evenly false
+    (children)))
+
+(defwindow bar [?width-px ?y-offset]
+  :monitor 0
+  :geometry (geometry
+              :x 0
+              :y {y-offset ?: 10}
+              :width {width-px ?: 1920}
+              :height 40
+              :anchor "top center")
+  :stacking "fg"
+  :focusable "none"
+  :exclusive true
+  (bar))
+
+(defwidget bar []
+  (centerbox
+    :orientation "h"
+    (bar-L)
+    (bar-M)
+    (bar-R)))
+
+(defwidget bar-L [] (pill-box :halign "start" (workspaces) (music)))
+(defwidget bar-M [] (pill-box :halign "center" (current-window)))
+(defwidget bar-R [] (pill-box :halign "end" (battery) (volume) (time)))

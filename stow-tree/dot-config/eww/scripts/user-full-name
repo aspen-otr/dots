@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-getent passwd "$USER" | cut -d: -f5 | cut -d, -f1

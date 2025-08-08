@@ -1,9 +1,0 @@
-(deflisten current-window-title :initial "{}" "ristate -w")
-(defpoll user :interval 0 "notify-send 'hello' 'test'")
-
-(defwidget current-window []
-  (box :class "current-window pad-sides" :orientation "h" :halign "center"
-    (label :text {current-window-title.title ?: user}
-           :limit-width 80
-           :unindent true
-           :lines 1)))

@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-pamixer --get-volume-human
-pactl subscribe | rg sink --line-buffered | xargs -n1 pamixer --get-volume-human
