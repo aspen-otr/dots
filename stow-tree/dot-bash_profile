@@ -6,6 +6,7 @@ export HOSTNAME="$(cat /etc/hostname)"
 export PATH="${PATH}:${HOME}/.local/bin"
 
 export EDITOR="nvim"
+export BASH_ENV=~/.env
 
 [ -f "~/.bashrc" ] && source ~/.bashrc
 

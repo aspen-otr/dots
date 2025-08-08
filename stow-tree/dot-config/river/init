@@ -75,9 +75,9 @@ do
     riverctl map $mode None XF86Eject spawn 'eject -T'
 
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map $mode None XF86AudioRaiseVolume  spawn 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
-    riverctl map $mode None XF86AudioLowerVolume  spawn 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
-    riverctl map $mode None XF86AudioMute         spawn 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+    riverctl map $mode None XF86AudioRaiseVolume  spawn 'volc --up'
+    riverctl map $mode None XF86AudioLowerVolume  spawn 'volc --down'
+    riverctl map $mode None XF86AudioMute         spawn 'volc --toggle-mute'
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
     riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
@@ -107,6 +107,8 @@ riverctl input $TOUCHPAD_ID disable-while-typing enabled
 riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id "firefox" ssd
 
+riverctl rule-add -app-id "Spotify" tags 256
+
 riverctl spawn mako
 riverctl map normal Super minus spawn "makoctl dismiss"
 riverctl map normal Super equal spawn "makoctl restore"
@@ -123,15 +125,18 @@ fi
 
 SCR_W=$(wlr-randr --json | jq "map(select(.enabled == true)) | .[].modes |= map(select(.current == true)) | .[0].modes[0].width")
 PADDING_CONST=6
+DBL_PADDING=$(($PADDING_CONST * 2));
 BAR_WIDTH=$((SCR_W - 4 * $PADDING_CONST));
-eww open bar --arg width="$BAR_WIDTH"
+eww open bar --arg "width-px=$BAR_WIDTH" --arg "y-offset=$DBL_PADDING"
 
-riverctl map normal Super b spawn "eww open --toggle bar --arg width=$BAR_WIDTH"
+riverctl map normal Super b spawn "eww open --toggle bar --arg 'width-px=$BAR_WIDTH' --arg 'y-offset=$DBL_PADDING'"
 riverctl map normal Super d spawn "eww open --toggle dashboard"
 
 mpc repeat on
 mpc random on
 mpc add /
+
+setsid -f spotify
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
