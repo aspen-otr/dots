@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+unset HISTFILE
+
 eval "$(eww shell-completions --shell bash)"
 
 alias ls='eza -a'
