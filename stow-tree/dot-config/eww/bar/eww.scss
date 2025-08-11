@@ -27,3 +27,11 @@ $pill-pad-h: 12px;
   background-color: mix($bg, $red, 15%);
   color: $bg;
 }
+
+.wifi-icon-label {
+  padding-left: 3px;
+}
+
+.wifi-disconnected > .wifi-info-label {
+  color: $red;
+}

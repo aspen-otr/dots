@@ -14,6 +14,10 @@
 
 (deflisten volume-l :initial "??%" "pamixer --get-volume-human; pactl subscribe | rg sink --line-buffered | xargs -n1 pamixer --get-volume-human")
 
+(defvar wifi-icon-v "")
+(defvar wifi-connected-v false)
+(deflisten wlan-info-l :initial "offline" "echo '' | scripts/wlan-info && { nmcli d monitor wlp1s0 | rg --line-buffered '(dis)?connected' | scripts/wlan-info; }")
+
 ;;;;;;;; WIDGETS ;;;;;;;; 
 
 (defwidget workspaces []
@@ -39,6 +43,12 @@
       :class "bar-battery-lbl"
       :text `${EWW_BATTERY.BAT1.status == "Charging" ? "" : " "} ${EWW_BATTERY.BAT1.capacity}%`)))
           
+(defwidget wlan []
+  (pill
+    :spacing 10 
+    :class {wifi-connected-v ? "wifi-connected" : "wifi-disconnected"}
+    (label :class "wifi-icon-label" :text wifi-icon-v)
+    (label :class "wifi-info-label" :text wlan-info-l)))
 
 (defwidget music []
   (pill (label :limit-width 40 :text "  ${music-l.title} - ${music-l.artist}")))
@@ -96,4 +106,4 @@
 
 (defwidget bar-L [] (pill-box :halign "start" (workspaces) (music)))
 (defwidget bar-M [] (pill-box :halign "center" (current-window)))
-(defwidget bar-R [] (pill-box :halign "end" (battery) (volume) (time)))
+(defwidget bar-R [] (pill-box :halign "end" (wlan) (battery) (volume) (time)))

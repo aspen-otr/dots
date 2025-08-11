@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+while read; do
+	NETWORK="$(nmcli -t device status | rg wlp1s0 | cut -d: -f4)"
+	if [ -z "$NETWORK" ]; then
+		NETWORK="Disconnected"
+		eww update wifi-connected-v=false
+	else
+		eww update wifi-connected-v=true
+	fi
+
+	echo "$NETWORK"
+done
