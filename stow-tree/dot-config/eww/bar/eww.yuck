@@ -53,6 +53,9 @@
 (defwidget music []
   (pill (label :limit-width 40 :text "  ${music-l.title} - ${music-l.artist}")))
 
+(defwidget systray-pill []
+  (pill (systray :spacing 10)))
+
 (defwidget current-window []
   (pill (label :limit-width 50 :text {ristate-l?.title ?: user-v})))
 
@@ -106,4 +109,4 @@
 
 (defwidget bar-L [] (pill-box :halign "start" (workspaces) (music)))
 (defwidget bar-M [] (pill-box :halign "center" (current-window)))
-(defwidget bar-R [] (pill-box :halign "end" (wlan) (battery) (volume) (time)))
+(defwidget bar-R [] (pill-box :halign "end" (wlan) (battery) (volume) (time) (systray-pill)))

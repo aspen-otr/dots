@@ -19,7 +19,18 @@ PS1_EXIT_STATUS_() { local EC=$?; if [ $EC -gt 0 ]; then printf " (%d)" $EC; fi 
 PS1='[\w$(PS1_EXIT_STATUS_)]\$ '
 
 function trash {
+	if [ $# -eq 1 ]; then
+		if [ -d "$1" ]; then
+			if [ -z $(command ls "$1") ]; then
+				command rm -d "$1"
+				return 0;
+			fi
+		fi
+	fi
 	mv -f $* ~/Trash/
+}
+function empty_trash {
+	command rm -rf ~/Trash/*
 }
 function rm {
 	echo 'use `trash` instead'

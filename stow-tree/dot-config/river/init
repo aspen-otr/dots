@@ -132,11 +132,13 @@ eww open bar --arg "width-px=$BAR_WIDTH" --arg "y-offset=$DBL_PADDING"
 riverctl map normal Super b spawn "eww open --toggle bar --arg 'width-px=$BAR_WIDTH' --arg 'y-offset=$DBL_PADDING'"
 riverctl map normal Super d spawn "eww open --toggle dashboard"
 
+riverctl map normal None Print spawn 'grim -g "$(slurp)" | wl-copy'
+
 mpc repeat on
 mpc random on
 mpc add /
 
-setsid -f spotify
+spotify &
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
