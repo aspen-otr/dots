@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+PERC="$(brightnessctl -m i | cut -d, -f4 | tr -d %)"
+
+case "$1" in
+	--up)
+		brightnessctl set 5%+ 2>&1 >/dev/null
+		;;
+	--down)
+		brightnessctl set 5%- 2>&1 >/dev/null
+		;;
+	--set)
+		brightnessctl set "${2}%" 2>&1 >/dev/null
+		;;
+	--get)
+		echo $PERC
+		;;
+esac
+
+eww update brightness-perc="${PERC}"

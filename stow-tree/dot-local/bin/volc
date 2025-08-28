@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+MUTED="$(pamixer --get-volume-human)"
+
+case "$1" in
+	--up)
+		if [ $MUTED = "muted" ]; then
+			exit 0
+		elif [ "$(pamixer --get-volume)" -ge 100 ]; then
+			exit 0
+		fi
+
+		pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+		if [ "$(pamixer --get-volume)" -ge 100 ]; then
+			volc --set 100
+			exit 0
+		fi
+		;;
+	--down)
+		if [ $MUTED == "muted" ]; then
+			exit 0
+		fi
+
+		pactl set-sink-volume @DEFAULT_SINK@ -5%
+		;;
+	--toggle-mute)
+		pactl set-sink-mute @DEFAULT_SINK@ toggle
+		;;
+	--set)
+		if [ -z "$2" ] || [ "$2" -gt 100 ] || [ "$2" -lt 0 ]; then
+			exit 0
+		fi
+		pactl set-sink-volume @DEFAULT_SINK@ "${2}%"
+		;;
+	--get)
+		case "$2" in
+			--mute-zero)
+				if [ "$MUTED" = "muted" ]; then
+					echo "0"
+				else
+					pamixer --get-volume
+				fi
+				;;
+			--mute-muted)
+				if [ "$MUTED" = "muted" ]; then
+					echo "muted"
+				else
+					pamixer --get-volume
+				fi
+				;;
+			--no-mute-zero)
+				pamixer --get-volume
+				;;
+		esac
+		;;
+esac
