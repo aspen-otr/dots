@@ -85,8 +85,8 @@ do
     riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
 
     # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +5%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'blc --up'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'blc --down'
 done
 
 # Set background and border color
@@ -134,7 +134,7 @@ eww open bar --arg "width-px=$BAR_WIDTH" --arg "y-offset=$DBL_PADDING"
 riverctl map normal Super b spawn "eww open --toggle bar --arg 'width-px=$BAR_WIDTH' --arg 'y-offset=$DBL_PADDING'"
 riverctl map normal Super d spawn "eww open --toggle dashboard"
 
-riverctl map normal None Print spawn 'grim -g "$(slurp)" | wl-copy'
+riverctl map normal None Print spawn 'grim -g "$(slurp)" - | wl-copy'
 
 
 mpc repeat on
