@@ -1,0 +1,17 @@
+#!/bin/sh
+
+default_full_name="$(grep ^$USER: /etc/passwd | awk -F: '{print $5}' | cut -d, -f1)"
+
+full_name=""
+
+if [ -z "$default_full_name" ]; then
+	full_name="$USER"
+else
+	full_name="$default_full_name"
+fi
+
+if [ -z "$full_name" ]; then
+	echo 'ERROR: `$full_name` not set' >&2
+fi
+
+printf "%s" "$full_name"

@@ -1,0 +1,45 @@
+#!/bin/sh
+
+ART_URL="$(eww get music-l | jq -r .cover)"
+
+if [ -z "$ART_URL" ]; then
+	exit 0
+fi
+
+if [ "$ART_URL" = "null" ]; then
+	exit 0
+fi
+
+CACHE_DIR="$HOME/.cache/eww/"
+
+mkdir -p $CACHE_DIR
+
+get_cached() {
+	ESC=$(printf "%b" "$1")
+	N=$(echo $ESC | md5sum | cut -d' ' -f1)
+	echo "${CACHE_DIR}${N}.jpg"
+}
+
+wget_url() {
+	# wget_url [URL] [DEST]
+	wget -O "$2" -q "$1"
+}
+
+CACHED="$(get_cached $ART_URL)"
+
+if [ -f "$CACHED" ]; then
+	printf "%s\n" "$CACHED"
+	exit 0
+fi
+
+rm -f "$CACHED"
+
+wget_url "$ART_URL" "$CACHED"
+EC=$?
+
+if [ $EC -ne 0 ]; then
+	echo "Exit code: $EC"
+	exit 1
+fi
+
+printf "%s\n" "$CACHED"

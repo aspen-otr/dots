@@ -1,0 +1,118 @@
+$tile-bg: lighten($bg, 20%);
+
+.rounded {
+  border-radius: 30px;
+}
+
+.tile {
+  background-color: $tile-bg;
+}
+
+.greeter-pfp {
+  background-image: url("user.png");
+  background-repeat: no-repeat;
+  background-size: 300px;
+  background-position: center;
+  min-height: 300px;
+  min-width: 300px;
+  margin: 80px 45px 30px 45px;
+  border-radius: 100%;
+}
+
+.greeter-txt {
+  font-size: 3.5em;
+}
+
+.dash-np-art {
+  background-repeat: no-repeat;
+  background-size: 300px;
+  background-position: center;
+  min-height: 300px;
+  min-width: 300px;
+  margin-top: 25px;
+  margin-left: 25px;
+  border-radius: 100%;
+}
+
+.dash-np-timeline {
+  margin: 0px 20px;
+}
+
+.dash-np-timeline-bar trough {
+  background-color: lighten($bg, 10%);
+  min-height: 20px;
+  min-width: 450px;
+  border-radius: 20px;
+} 
+
+.dash-np-timeline-bar trough highlight {
+  background-color: $purple;
+  border-radius: 20px;
+} 
+
+.np-play, .np-prev, .np-next {
+  font-size: 40px;
+  border-radius: 50px;
+}
+
+.np-play:hover, .np-prev:hover, .np-next:hover {
+  background-color: $bg;
+}
+
+.np-play {
+  margin: 0px 25px;
+  padding: 10px 0px;
+}
+.np-prev {
+  margin-left: 50px;
+  padding: 10px 10px 10px 0px;
+}
+.np-next {
+  margin-right: 50px;
+  padding: 10px 0px;
+}
+
+.dash-np-track {
+  font-size: 2em;
+  font-weight: bold;
+}
+.dash-np-artist {
+  font-size: 1.7em;
+}
+.dash-np-album {
+  font-size: 1.4em;
+  color: mix($bg, $fg, 10%);
+}
+
+.slider {
+  min-height: 550px;
+}
+.slider trough {
+  background-color: lighten($bg, 10%);
+  min-width: 20px;
+  margin: 25px 0px 25px 0px;
+  border-radius: 10px;
+}
+
+.slider.volume trough highlight {
+  background-color: $green;
+  border-radius: 10px;
+}
+
+.slider.backlight trough highlight {
+  background-color: $yellow;
+  border-radius: 10px;
+}
+
+.reboot-btn, .logout-btn {
+  font-size: 5em;
+}
+
+.reboot-txt {
+  color: $red;
+  margin-right: 15px;
+}
+.logout-txt {
+  color: $blue;
+  margin-right: 18px;
+}

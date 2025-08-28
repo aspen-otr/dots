@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+total=$(eww get music-l | jq -r .length)
+total=$((total/1000000))
+
+eww poll music-p
+current=$(eww get music-p)
+
+if [ "$total" -eq 0 ]; then
+	echo "0"
+	exit 0
+fi
+
+bc -l <<< "($current/$total)*100"

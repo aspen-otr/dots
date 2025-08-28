@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+playerctl -p spotify -F metadata -f '{"status":"{{lc(status)}}","artist":"{{xesam:artist}}","title":"{{xesam:title}}","album":"{{xesam:album}}","cover":"{{mpris:artUrl}}","length":"{{mpris:length}}"}' | while read -r line; do
+	./scripts/cover-art || true
+done
+

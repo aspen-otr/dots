@@ -1,0 +1,13 @@
+#!/bin/sh
+
+image_path="$(eww get greeter-user-image-path 2>/dev/null)"
+
+if [ -z "$image_path" ]; then
+	image_path="${HOME}/Pictures/user.png"
+fi
+
+if ! [ -f "$image_path" ]; then
+	printf "No valid image found at '%s'\n" "$image_path" >&2
+fi
+
+printf "%s" "$image_path"

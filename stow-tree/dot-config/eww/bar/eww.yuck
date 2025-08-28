@@ -5,14 +5,25 @@
 ;;; -p -> polling var
 ;;; -v -> regular defvar. if polling once (from my #883 fix) this is used.
 
-(deflisten ristate-l :initial "{}" `ristate -t -w -u -vt | stdbuf -o0 sed '/{"tags":{},"urgency":{},"viewstag":{}}/d'`)
-(defpoll user-v :interval 0 "echo $USER")
-(defpoll time-p :interval "1m" `date +'{"hour":"%_I","minute":"%M","ampm":"%P"}'`)
+(deflisten ristate-l
+  :initial "{}"
+  `ristate -t -w -u -vt | stdbuf -o0 sed '/{"tags":{},"urgency":{},"viewstag":{}}/d'`)
+(defpoll user-v
+  :interval 0
+  "echo $USER")
+(defpoll time-p
+  :interval "1m"
+  `date +'{"hour":"%_I","minute":"%M","ampm":"%P"}'`)
 
-(deflisten music-l :initial "{}" `playerctl -p spotify -F metadata -f '{"status":"{{lc(status)}}","artist":"{{xesam:artist}}","title":"{{xesam:title}}","album":"{{xesam:album}}","cover":"{{mpris:artUrl}}","length":"{{mpris:length}}"}'`)
-(defpoll music-p :interval "1s" "playerctl -p spotify position")
+(deflisten music-l
+  :initial "{}"
+  "stdbuf -oL scripts/music-dat")
 
-(deflisten volume-l :initial "??%" "pamixer --get-volume-human; pactl subscribe | rg sink --line-buffered | xargs -n1 pamixer --get-volume-human")
+(defpoll music-p
+  :interval "1s"
+  "playerctl -p spotify position")
+
+(deflisten volume-l :initial "0" "volc --get --mute-muted; pactl subscribe | rg sink --line-buffered | xargs -n1 volc --get --mute-muted")
 
 (defvar wifi-icon-v "")
 (defvar wifi-connected-v false)
@@ -31,17 +42,21 @@
 (defwidget time []
   (pill :spacing 7 ; Better to visually parse than a space IMO
     (label :text " ")
-    (label :text "${time-p.hour}:${time-p.minute}${time-p.ampm == '' ? '' : ' '}${time-p.ampm}")))
+    (label :text "${time-p?.hour}:${time-p?.minute}${time-p?.ampm == '' ? '' : ' '}${time-p?.ampm}")))
 
 (defwidget volume []
-  (pill {volume-l == "muted" ? " 0% (muted)" : "  ${volume-l}"}))
+  (pill {volume-l == "muted" ? " 0% (muted)" : "  ${volume-l}%"}))
 
 (defwidget battery []
   (pill
     :class {(EWW_BATTERY.BAT1.status != "Charging" && EWW_BATTERY.BAT1.capacity < 20) ? "low-battery" : "ok-battery"}
     (label
       :class "bar-battery-lbl"
-      :text `${EWW_BATTERY.BAT1.status == "Charging" ? "" : " "} ${EWW_BATTERY.BAT1.capacity}%`)))
+      :text `${EWW_BATTERY.BAT1.status == "Charging"
+               ? "" : EWW_BATTERY.BAT1.capacity < 20
+               ? " " : EWW_BATTERY.BAT1.capacity < 50
+               ? " " : EWW_BATTERY.BAT1.capacity < 70
+               ? " " : " "} ${EWW_BATTERY.BAT1.capacity}%`)))
           
 (defwidget wlan []
   (pill
@@ -51,7 +66,8 @@
     (label :class "wifi-info-label" :text wlan-info-l)))
 
 (defwidget music []
-  (pill (label :limit-width 40 :text "  ${music-l.title} - ${music-l.artist}")))
+  (pill
+    (label :limit-width 40 :text "  ${music-l.title} - ${music-l.artist}")))
 
 (defwidget systray-pill []
   (pill (systray :spacing 10)))

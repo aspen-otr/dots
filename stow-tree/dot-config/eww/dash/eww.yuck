@@ -1,0 +1,238 @@
+(defpoll greeter-image-path :interval 0 "scripts/dash-greeter-img")
+(defpoll greeter-full-name :interval 0 "scripts/dash-greeter-name")
+(defpoll hostname :interval 0 "cat /etc/hostname")
+(deflisten cover-art "scripts/cover-listen")
+(defpoll dash-np-frac
+  :interval "1s"
+  :initial 0
+  "scripts/dash-np-frac")
+(defpoll music-current-fmt
+  :interval "1s"
+  "scripts/dash-np-time")
+
+(defwindow dashboard []
+  :monitor 0
+  :geometry (geometry
+              :x 0
+              :y 10
+              :width 1800
+              :height 1200
+              :anchor "center")
+  :stacking "fg"
+  :focusable "none"
+  (dashboard))
+
+(defpoll brightness-perc
+  :interval 0
+  "blc --get")
+
+(defwidget dashboard []
+  (tilebox
+    :orientation "h"
+    (tilebox
+      :orientation "v"
+      (tilebox
+        :orientation "h"
+        (tilebox
+          :orientation "v"
+          (dash/greeter)
+          (dash/now-playing))
+        (tilebox
+          :orientation "v"
+          (tilebox
+            :orientation "h"
+            (dash/clock)
+            (tilebox
+              :orientation "v"
+              (dash/reboot)
+              (dash/logout)))
+          (tilebox
+            :orientation "h"
+            (dash/sliders)
+            (dash/calendar))))
+      (dash/misc))
+    (dash/todos)))
+
+(defwidget dash/greeter []
+  (rounded-tile
+    :width 600
+    :height 500
+    (box 
+      :class "greeter"
+      :orientation "v"
+      :space-evenly false
+     (box
+       :valign "center"
+       :halign "center"
+       :class "greeter-pfp")
+     (label
+       :class "greeter-txt"
+       :text "Hello, ${greeter-full-name}"
+       :limit-width 24))))
+        
+
+(defwidget dash/now-playing []
+  (rounded-tile
+     :width 600
+     :height 510
+    (box 
+      :class "dash-np"
+      :orientation "v"
+      :space-evenly false
+      :spacing 10
+      (box
+        :spacing 25
+        (box
+          :halign "center"
+          :valign "center"
+          :class "dash-np-art"
+          :style 'background-image: url("${cover-art}")')
+        (box
+          :orientation "v"
+          :valign "center"
+          :space-evenly false
+          (label
+            :halign "start"
+            :class "dash-np-track"
+            :limit-width 13
+            :text {music-l.title}) 
+          (label
+            :halign "start"
+            :class "dash-np-artist"
+            :limit-width 18
+            :text {music-l.artist})
+          (label
+            :halign "start"
+            :class "dash-np-album"
+            :limit-width 23
+            :text {music-l.album})))
+      (box
+        :class "dash-np-ctls"
+        :spacing 50
+        :space-evenly true
+        (dash/np-prev)
+        (dash/np-play)
+        (dash/np-next))
+      (dash/np-timeline))))
+
+(defwidget dash/np-prev []
+  (button
+    :class "np-prev"
+    :onclick "playerctl -p spotify previous"
+    (label :text "")))
+
+(defwidget dash/np-play []
+  (button
+    :class "np-play"
+    :onclick "playerctl -p spotify play-pause"
+    (label :text {music-l.status == "playing" ? "" : ""})))
+
+(defwidget dash/np-next []
+  (button
+    :class "np-next"
+    :onclick "playerctl -p spotify next"
+    (label :text "")))
+
+(defwidget dash/np-timeline []
+  (box
+    :class "dash-np-timeline"
+    (scale
+      :class "dash-np-timeline-bar"
+      :min 0
+      :max 100
+      :value dash-np-frac)))
+
+(defwidget dash/clock []
+  (rounded-tile
+    :width 600
+    :height 400
+    "clock & weather"))
+
+(defwidget dash/logout []
+  (button
+    :class "logout-btn"
+    :timeout "500ms"
+    :onclick "riverctl exit"
+    (rounded-tile
+     :width 200
+     :height 200
+     (label
+       :class "logout-txt"
+       :text ""))))
+    
+  
+(defwidget dash/reboot []
+  (button
+    :class "reboot-btn"
+    :timeout "500ms"
+    :onclick "systemctl reboot"
+    (rounded-tile
+      :width 200
+      :height 200
+      (label
+        :class "reboot-txt"
+        :text ""))))
+    
+(defwidget dash/sliders []
+  (rounded-tile
+    :width 200
+    :height 600
+    (box
+      :orientation "h"
+      (box
+        :orientation "v"
+        :space-evenly false
+        (scale
+          :class "slider volume"
+          :orientation "v"
+          :flipped true
+          :min 0
+          :max 100
+          :round-digits 0
+          :value {volume-l == "muted" ? 0 : volume-l}
+          :onchange "volc --set {}")
+        (label :text {volume-l == "muted" ? "" : volume-l < 50 ? "" : ""}))
+      (box
+        :orientation "v"
+        :space-evenly false
+        (scale
+          :class "slider backlight"
+          :orientation "v"
+          :flipped true
+          :min 0
+          :max 100
+          :round-digits 0
+          :value {brightness-perc ?: 0}
+          :onchange "blc --set {}")
+        (label :text "")))))
+(defwidget dash/calendar []
+  (rounded-tile
+    :width 600
+    :height 600
+    "cal reminders"))
+
+(defwidget dash/todos []
+  (rounded-tile
+    :width 700
+    :height 1200
+    "taskwarrior"))
+
+(defwidget dash/misc []
+  (rounded-tile
+    :width 1100
+    :height 200
+    "miscellaneous"))
+  
+(defwidget tilebox [orientation]
+  (box
+    :orientation orientation
+    :spacing 10
+    :space-evenly false
+    (children)))
+    
+(defwidget rounded-tile [width height]
+  (box
+    :width width
+    :height height
+    :class "rounded tile"
+    (children :nth 0)))
