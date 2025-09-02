@@ -30,6 +30,8 @@ case "$1" in
 	--set)
 		if [ -z "$2" ] || [ "$2" -gt 100 ] || [ "$2" -lt 0 ]; then
 			exit 0
+		elif [ "$MUTED" == "muted" ]; then
+			volc --toggle-mute
 		fi
 		pactl set-sink-volume @DEFAULT_SINK@ "${2}%"
 		;;

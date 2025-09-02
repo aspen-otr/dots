@@ -17,4 +17,5 @@ case "$1" in
 		;;
 esac
 
-eww update brightness-perc="${PERC}"
+NEW_PERC="$(brightnessctl -m i | cut -d, -f4 | tr -d %)"
+eww update brightness-perc="${NEW_PERC}"
