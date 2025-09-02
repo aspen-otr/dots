@@ -41,7 +41,7 @@
           :orientation "v"
           (tilebox
             :orientation "h"
-            (dash/clock)
+            (dash/clock-weather)
             (tilebox
               :orientation "v"
               (dash/reboot)
@@ -56,7 +56,7 @@
 (defwidget dash/greeter []
   (rounded-tile
     :width 600
-    :height 500
+    :height 560
     (box 
       :class "greeter"
       :orientation "v"
@@ -67,14 +67,14 @@
        :class "greeter-pfp")
      (label
        :class "greeter-txt"
-       :text "Hello, ${greeter-full-name}"
+       :text "${greeter-full-name}"
        :limit-width 24))))
         
 
 (defwidget dash/now-playing []
   (rounded-tile
      :width 600
-     :height 510
+     :height 450
     (box 
       :class "dash-np"
       :orientation "v"
@@ -91,6 +91,7 @@
           :orientation "v"
           :valign "center"
           :space-evenly false
+          :spacing 7
           (label
             :halign "start"
             :class "dash-np-track"
@@ -142,11 +143,25 @@
       :max 100
       :value dash-np-frac)))
 
-(defwidget dash/clock []
+(defwidget dash/clock-weather []
   (rounded-tile
     :width 600
     :height 400
-    "clock & weather"))
+    (box
+      :orientation "h"
+      :space-evenly false
+      (box
+        :orientation "v"
+        :valign "center"
+        (label
+          :class "cw-time cw-time-hour"
+          :text {time-p.hour})
+        (label
+          :class "cw-time cw-time-minute"
+          :text {time-p.minute}))
+      (label
+        :class "cw-weather"
+        :text "weather"))))
 
 (defwidget dash/logout []
   (button
@@ -191,7 +206,9 @@
           :round-digits 0
           :value {volume-l == "muted" ? 0 : volume-l}
           :onchange "volc --set {}")
-        (label :text {volume-l == "muted" ? "" : volume-l < 50 ? "" : ""}))
+        (button
+          :onclick "volc --toggle-mute"
+          (label :text {volume-l == "muted" ? "" : volume-l < 50 ? "" : ""})))
       (box
         :orientation "v"
         :space-evenly false
