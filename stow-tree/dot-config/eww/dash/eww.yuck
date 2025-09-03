@@ -49,7 +49,7 @@
           (tilebox
             :orientation "h"
             (dash/sliders)
-            (dash/calendar))))
+            (dash/pacman))))
       (dash/misc))
     (dash/todos)))
 
@@ -222,11 +222,11 @@
           :value {brightness-perc ?: 0}
           :onchange "blc --set {}")
         (label :text "")))))
-(defwidget dash/calendar []
+(defwidget dash/pacman []
   (rounded-tile
     :width 600
     :height 600
-    "cal reminders"))
+    "pacman updates"))
 
 (defwidget dash/todos []
   (rounded-tile
@@ -238,7 +238,9 @@
   (rounded-tile
     :width 1100
     :height 200
-    "miscellaneous"))
+    (label
+      :class "misc misc-text"
+      :text "You are the best to ever do it!")))
   
 (defwidget tilebox [orientation]
   (box
