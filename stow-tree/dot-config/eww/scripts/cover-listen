@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-playerctl -p spotify -F metadata -f | while read -r line; do
+playerctl -p spotify -F metadata | while read -r line; do
 	./scripts/cover-art || true
 done
 
