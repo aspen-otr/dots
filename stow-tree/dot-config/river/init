@@ -135,7 +135,7 @@ eww open bar --arg "width-px=$BAR_WIDTH" --arg "y-offset=$DBL_PADDING"
 riverctl map normal Super b spawn "eww open --toggle bar --arg 'width-px=$BAR_WIDTH' --arg 'y-offset=$DBL_PADDING'"
 riverctl map normal Super d spawn "eww open --toggle dashboard"
 
-riverctl map normal None Print spawn 'grim -g "$(slurp)" - | tee "$HOME/Pictures/screenshot_$(date +%F-%T)" | wl-copy'
+riverctl map normal None Print spawn 'grim -g "$(slurp)" - | tee "$HOME/Pictures/screenshot_$(date +%F-%T).png" | wl-copy'
 
 riverctl map normal Super+Control L spawn 'swaylock -i ~/Pictures/wallpapers/current-wallpaper'
 

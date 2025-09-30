@@ -35,5 +35,13 @@ function rm {
 
 export GPG_TTY=$(tty)
 
+export EDITOR="emacsclient -t"
+
 touch -a ~/.env
 . ~/.env
+
+function e_cmd {
+	tmp=$(mktemp)
+	${EDITOR:-vim} $tmp
+	eval $(cat $tmp)
+}
