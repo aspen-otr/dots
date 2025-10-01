@@ -116,7 +116,7 @@ riverctl spawn mako
 riverctl map normal Super minus spawn "makoctl dismiss"
 riverctl map normal Super equal spawn "makoctl restore"
 
-swaybg -i ~/Pictures/wallpapers/current-wallpaper &
+swaybg -i ~/Pictures/wallpapers/current-wallpaper --mode=stretch &
 signal-desktop --start-in-tray &
 
 wlsunset -t 3000 -S 7:00 -s 20:30 -d 600 &
@@ -137,7 +137,7 @@ riverctl map normal Super d spawn "eww open --toggle dashboard"
 
 riverctl map normal None Print spawn 'grim -g "$(slurp)" - | tee "$HOME/Pictures/screenshot_$(date +%F-%T).png" | wl-copy'
 
-riverctl map normal Super+Control L spawn 'swaylock -i ~/Pictures/wallpapers/current-wallpaper'
+riverctl map normal Super+Control L spawn 'swaylock -s stretch -i ~/Pictures/wallpapers/current-wallpaper'
 
 mpc repeat on
 mpc random on
