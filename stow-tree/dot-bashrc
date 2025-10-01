@@ -45,3 +45,5 @@ function e_cmd {
 	${EDITOR:-vim} $tmp
 	eval $(cat $tmp)
 }
+
+alias suw="ssh uww@localhost"
