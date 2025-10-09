@@ -36,7 +36,7 @@
     (box
       :spacing 10
       :space-evenly true
-      (for index in "[1,2,3,4,5,6,7,8,9]"
+      (for index in "[1,2,3,4,5,6,7,8,9,10]"
          (tag-circle :index index)))))
 
 (defwidget time []
@@ -82,9 +82,9 @@
     (circular-progress
       :value 100
       :thickness 8
-      :class `${matches(ristate-l.tags, index) ? "active"
-                : matches(ristate-l.urgency, index) ? "urgent"
-                : matches(ristate-l.viewstag, index) ? "occupied" : "empty"}`)))
+      :class {jq(ristate-l.tags.BOE, "any(.[]; . == \"${index}\")") ? "active"
+                : jq(ristate-l.viewstag.BOE, "any(.[]; . == ${index})") ? "occupied"
+                  : "empty"})))
 
 (defwidget pill [?space-evenly ?orientation ?spacing ?halign ?class] ; pass through to underlying "box"
   (box
