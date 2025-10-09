@@ -3,6 +3,7 @@
 riverctl map normal Super Return spawn foot
 riverctl map normal Super P spawn "wofi -b --show=drun"
 riverctl map normal Super E spawn "emacsclient -c"
+riverctl map normal Super R spawn "qutebrowser"
 
 riverctl map normal Super+Shift C close
 
@@ -42,20 +43,16 @@ riverctl map normal Super+Alt+Shift J resize vertical 100
 riverctl map normal Super+Alt+Shift K resize vertical -100
 riverctl map normal Super+Alt+Shift L resize horizontal 100
 
-for i in $(seq 1 9)
+for i in $(seq 1 9) 0
 do
     tags=$((1 << ($i - 1)))
+    if [ $i -eq 0 ]; then
+        tags=512
+    fi
 
-    # Super+[1-9] to focus tag [0-8]
     riverctl map normal Super $i set-focused-tags $tags
-
-    # Super+Shift+[1-9] to tag focused view with tag [0-8]
     riverctl map normal Super+Shift $i set-view-tags $tags
-
-    # Super+Control+[1-9] to toggle focus of tag [0-8]
     riverctl map normal Super+Control $i toggle-focused-tags $tags
-
-    # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
     riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
 done
 
@@ -122,7 +119,7 @@ signal-desktop --start-in-tray &
 wlsunset -t 3000 -S 7:00 -s 20:30 -d 600 &
 
 ### BAR ###
-if [[ ! $(pidof eww) ]]; then
+if ! pgrep -x eww; then
     eww daemon
 fi
 
