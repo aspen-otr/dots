@@ -83,6 +83,7 @@
       :value 100
       :thickness 8
       :class {jq(ristate-l.tags.BOE, "any(.[]; . == \"${index}\")") ? "active"
+                : jq(ristate-l.urgency.BOE, "any(.[]; . == \"${index}\")") ? "urgent"
                 : jq(ristate-l.viewstag.BOE, "any(.[]; . == ${index})") ? "occupied"
                   : "empty"})))
 

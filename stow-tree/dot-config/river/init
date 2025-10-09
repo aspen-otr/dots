@@ -107,7 +107,7 @@ riverctl input $TOUCHPAD_ID disable-while-typing enabled
 riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id "firefox" ssd
 
-riverctl rule-add -app-id "Spotify" tags 256
+riverctl rule-add -app-id "Spotify" tags 512
 
 riverctl spawn mako
 riverctl map normal Super minus spawn "makoctl dismiss"
@@ -117,6 +117,10 @@ swaybg -i ~/Pictures/wallpapers/current-wallpaper --mode=stretch &
 signal-desktop --start-in-tray &
 
 wlsunset -t 3000 -S 7:00 -s 20:30 -d 600 &
+
+if ! ps -C 'emacs --daemon' >/dev/null 2>&1; then
+    emacs --daemon
+fi
 
 ### BAR ###
 if ! pgrep -x eww; then
