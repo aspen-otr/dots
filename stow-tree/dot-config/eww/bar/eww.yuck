@@ -23,7 +23,7 @@
   :interval "1s"
   "playerctl -p spotify position")
 
-(deflisten volume-l :initial "0" "volc --get --mute-muted; pactl subscribe | rg sink --line-buffered | xargs -n1 volc --get --mute-muted")
+(deflisten volume-l :initial "0" "volc --get --mute-muted; pactl subscribe | grep --line-buffered sink | xargs -n1 volc --get --mute-muted")
 
 (defvar wifi-icon-v "")
 (defvar wifi-connected-v false)

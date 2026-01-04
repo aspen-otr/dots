@@ -9,7 +9,5 @@ export EDITOR="nvim"
 export BASH_ENV=~/.env
 
 [ -f "~/.bashrc" ] && source ~/.bashrc
-
-if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
-    exec river
-fi
+[ -f "$BASH_ENV" ] && source "$BASH_ENV"
+. "$HOME/.cargo/env"

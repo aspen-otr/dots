@@ -13,6 +13,7 @@
 	s = status --short --branch
 	l = log --oneline
 	p = push
+	pf = push --force-with-lease
 	f = fetch
 	a = add
 	au = add -u

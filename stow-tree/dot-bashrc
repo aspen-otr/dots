@@ -20,6 +20,8 @@ alias mkdir='mkdir -p'
 
 alias e='emacsclient -t'
 
+alias p=python
+
 PS1_EXIT_STATUS_() { local EC=$?; if [ $EC -gt 0 ]; then printf " (%d)" $EC; fi }
 PS1='[\w$(PS1_EXIT_STATUS_)]\$ '
 
@@ -47,3 +49,4 @@ function e_cmd {
 }
 
 alias suw="ssh uww@localhost"
+. "$HOME/.cargo/env"
